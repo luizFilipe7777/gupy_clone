@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Nova Vaga</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; text-align: center; font-size: 24px; }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea { height: 100px; resize: none; }
+        .btn-submit {
+            width: 100%;
+            background: #2ecc71;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-submit:hover { background: #27ae60; }
+        .btn-voltar {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #7f8c8d;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>➕ Cadastrar Nova Vaga</h1>
+        
+        <form id="form-vaga">
+            <div class="form-group">
+                <label>Título da Vaga:</label>
+                <input type="text" id="titulo" required placeholder="Ex: Desenvolvedor Java">
+            </div>
+
+            <div class="form-group">
+                <label>Empresa:</label>
+                <input type="text" id="empresa" required placeholder="Ex: Google">
+            </div>
+
+            <div class="form-group">
+                <label>Salário (R$):</label>
+                <input type="number" id="salario" step="0.01" required placeholder="Ex: 5000.00">
+            </div>
+
+            <div class="form-group">
+                <label>Descrição da Vaga:</label>
+                <textarea id="descricao" required placeholder="Descreva as atividades e requisitos..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Salvar Vaga</button>
+        </form>
+
+        <a href="index.html" class="btn-voltar">⬅ Voltar para a lista</a>
+    </div>
+
+    <script>
+        // Escuta o momento em que o usuário clica no botão "Salvar Vaga"
+        document.getElementById('form-vaga').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Impede a página de recarregar antes da hora
+
+            // Junta todos os dados digitados em um objeto só
+            const dadosVaga = {
+                titulo: document.getElementById('titulo').value,
+                empresa: document.getElementById('empresa').value,
+                salario: parseFloat(document.getElementById('salario').value),
+                descricao: document.getElementById('descricao').value
+            };
+
+            try {
+                // Envia os dados para a rota @PostMapping do nosso Java em formato JSON
+                const resposta = await fetch('http://localhost:8080/api/vagas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dadosVaga)
+                });
+
+                if (resposta.ok) {
+                    alert('Vaga cadastrada com sucesso! 🎉');
+                    window.location.href = 'index.html'; // Manda o usuário de volta para a tela inicial
+                } else {
+                    alert('Erro ao salvar a vaga.');
+                }
+            } catch (erro) {
+                console.error('Erro:', erro);
+                alert('Erro ao conectar com o servidor Java.');
+            }
+        });
+    </script>
+</body>
+</html>

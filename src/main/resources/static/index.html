@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Vagas - Conectando Talentos</title>
+    <style>
+        /* Estilos Globais Modernos */
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Topo / Navbar */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Conteúdo Principal */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        /* Botões */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Cards de Vagas Profissionais */
+        .vaga-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .vaga-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            border-color: #cbd5e1;
+        }
+
+        .vaga-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            color: var(--text-main);
+        }
+
+        .empresa-tag {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .vaga-card p {
+            margin: 0 0 16px 0;
+            color: var(--text-sub);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .salario {
+            font-weight: 700;
+            color: var(--success);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Painel de Botões do Card */
+        .botoes-card {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn-candidatar {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-candidatar:hover { background-color: var(--primary-hover); }
+
+        .btn-excluir {
+            background-color: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-excluir:hover {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 25px;
+            margin-top: auto;
+        }
+
+        .link-admin {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .link-admin:hover {
+            color: var(--text-main);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>💼 Gupy Clone</h1>
+            <a href="cadastrar.html" class="btn">＋ Divulgar Nova Vaga</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Vagas em Destaque</h2>
+        
+        <div id="lista-vagas">
+            <p style="text-align: center; color: var(--text-sub);">Carregando vagas disponíveis...</p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="recrutador.html" class="link-admin">🔒 Área Exclusiva do Recrutador</a>
+    </footer>
+
+    <script>
+        async function carregarVagas() {
+            try {
+                const resposta = await fetch('http://localhost:8080/api/vagas');
+                const vagas = await resposta.json();
+
+                const listaVagasDiv = document.getElementById('lista-vagas');
+                listaVagasDiv.innerHTML = '';
+
+                if (vagas.length === 0) {
+                    listaVagasDiv.innerHTML = '<p style="color: var(--text-sub); text-align: center; font-style: italic; margin-top: 40px;">Nenhuma vaga aberta no momento. Volte mais tarde!</p>';
+                    return;
+                }
+
+                vagas.forEach(vaga => {
+                    const card = document.createElement('div');
+                    card.className = 'vaga-card';
+                    card.innerHTML = `
+                        <h3>${vaga.titulo}</h3>
+                        <span class="empresa-tag">${vaga.empresa}</span>
+                        <p>${vaga.descricao}</p>
+                        <div class="salario">💵 R$ ${vaga.salario.toFixed(2)}</div>
+                        <div class="botoes-card">
+                            <button class="btn-candidatar" onclick="irParaInscricao(${vaga.id})">Quero me candidatar</button>
+                            <button class="btn-excluir" onclick="deletarVaga(${vaga.id})">Excluir</button>
+                        </div>
+                    `;
+                    listaVagasDiv.appendChild(card);
+                });
+
+            } catch (erro) {
+                console.error("Erro ao buscar vagas:", erro);
+                document.getElementById('lista-vagas').innerHTML = '<p style="color: var(--danger); text-align: center;">Erro ao conectar com o servidor Java.</p>';
+            }
+        }
+
+        function irParaInscricao(idVaga) {
+            window.location.href = `candidatar.html?vagaId=${idVaga}`;
+        }
+
+        async function deletarVaga(id) {
+            if (confirm("Tem certeza que deseja apagar permanentemente esta vaga?")) {
+                try {
+                    const resposta = await fetch(`http://localhost:8080/api/vagas/${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (resposta.ok) {
+                        alert("Vaga removida com sucesso! 🗑️");
+                        carregarVagas();
+                    } else {
+                        alert("Erro ao excluir a vaga.");
+                    }
+                } catch (erro) {
+                    console.error("Erro:", erro);
+                }
+            }
+        }
+
+        window.onload = carregarVagas;
+    </script>
+</body>
+</html>
